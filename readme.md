@@ -12,11 +12,3 @@ I've included a `firebase.json` file here, which you could easily use to deploy 
 4. It should ask you to authenticate (maybe you'll need to sign up), and you will need to create an app to which to deploy it to. But shortly you will have a live page to see your 
 
 If you're wondering why there's a server component to this demo, investigate the `firebase.json` file. All it does is ensure that neither the index page or the service worker are cached by the browser. Because a service worker is willing to fill its cache with a browser cache, it's important to keep those caches clear.
-
-## Reading the tea leaves
-
-| Name | Status | Type | Initiator | Size | Time |
-| ---- | ---- | ---- | --- | --- | -- |
-| `/` | 200 | document | Other | 355 b | 53 ms
-| `/service-worker.js` | 200 | javascript | `/service-worker.js:-Infinity` | 0 b | 42 ms
-| `/` | 200 | text/html | Other | 355 b | 44 ms
