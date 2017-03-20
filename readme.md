@@ -13,7 +13,11 @@ I've included a `firebase.json` file here, which you could easily use to deploy 
 
 If you're wondering why there's a server component to this demo, investigate the `firebase.json` file. All it does is ensure that neither the index page or the service worker are cached by the browser. Because a service worker is willing to fill its cache with a browser cache, it's important to keep those caches clear.
 
-## First load lifecycle
+## Lifecycles
+
+The following is a step-by-step rundown of how your browser interacts with the server and with service workers in various scenarios.
+
+### First load lifecycle
 
 1. Browser loads `/` with a request to the server
 2. Browser downloads service-worker.js and registers it (at `index.html`'s request) as a service worker
@@ -22,13 +26,13 @@ If you're wondering why there's a server component to this demo, investigate the
 5. `/` is added to the cache.
 6. The browser downloads `/` _again_. This time the response is stored in the new cache.
 
-## Second load lifecycle
+### Second load lifecycle
 
 1. When the browser requests `/`, the service worker supplies the response.
 2. The browser downloads `service-worker.js` in the usual way. __The browser is willing to retrieve `service-worker.js` from the browser cache__.
 3. There is no step 3
 
-## Upgrade lifecycle
+### Upgrade lifecycle
 
 Say you upgrade the app to a new version. In the case of this repo that would entail changing the version number in two places: in `index.html` and in the `currentCacheKey` variable of `service-worker.js`. The following will happen:
 
