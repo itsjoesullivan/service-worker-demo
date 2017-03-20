@@ -30,6 +30,8 @@ If you're wondering why there's a server component to this demo, investigate the
 
 ## Upgrade lifecycle
 
+Say you upgrade the app to a new version. In the case of this repo that would entail changing the version number in two places: in `index.html` and in the `currentCacheKey` variable of `service-worker.js`. The following will happen:
+
 1. When the browser requests `/`, the service worker supplies the response.
 2. The browser downloads `service-worker.js` in the usual way. Because (in this demo) it is not cached by the browser, the new version of service-worker.js is downloaded and installed. This includes opening a new cache, as above, with a new key, and downloading the new version of `/`.
 3. The new service worker is "waiting to activate", meaning that it's waiting for there to be no current tabs open at this page. __Simply refreshing the page is not sufficient to activate a new service worker.__ You need to close the tab and open a new one.
