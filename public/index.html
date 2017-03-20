@@ -6,11 +6,18 @@
     <script>
       if (navigator.serviceWorker) {
         console.log('registering');
-        navigator.serviceWorker.register('service-worker2.js').then(function(e) { console.log('success', e); }, function(e) { console.log('bad', e); });
+        navigator.serviceWorker.register('service.js').then(
+        function(registration) {
+          console.log('success', registration);
+          console.log('attempting update');
+          registration.update();
+        }, function(e) {
+          console.log('bad', e);
+        });
       }
     </script>
     <p>
-    Version: 0.0.5
+    Version: 0.0.6
     </p>
   </body>
 </html>
