@@ -15,9 +15,24 @@ If you're wondering why there's a server component to this demo, investigate the
 
 ## First load lifecycle
 
-1. Browser loads index.html in the usual fashion
+1. Browser loads `/` with a request to the server
 2. Browser downloads service-worker.js and registers it (at `index.html`'s request) as a service worker
 3. `service-worker.js` receives an `install` event.
 4. The install event handler opens a new cache with a key that is the value of `currentCacheKey`
-5. `index.html` is added to the cache
-6. The browser downloads `index.html` _again_. This time the response is stored in the new cache.
+5. `/` is added to the cache.
+6. The browser downloads `/` _again_. This time the response is stored in the new cache.
+
+## Second load lifecycle
+
+1. When the browser requests `/`, the service worker supplies the response.
+2. The browser downloads `service-worker.js` in the usual way. __The browser is willing to retrieve `service-worker.js` from the browser cache__.
+3. There is no step 3
+
+## Upgrade lifecycle
+
+1. When the browser requests `/`, the service worker supplies the response.
+2. The browser downloads `service-worker.js` in the usual way. Because (in this demo) it is not cached by the browser, the new version of service-worker.js is downloaded and installed. This includes opening a new cache, as above, with a new key, and downloading the new version of `/`.
+3. The new service worker is "waiting to activate", meaning that it's waiting for there to be no current tabs open at this page. __Simply refreshing the page is not sufficient to activate a new service worker.__ You need to close the tab and open a new one.
+4. At the moment that all tabs running the previous version of the page are closed, the service worker is activated.
+5. The service worker receives an "activate" event. The activate event handler clears out the old caches.
+6. Visiting the page again follows the "Second load lifecycle" (above) exactly.
