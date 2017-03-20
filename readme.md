@@ -13,10 +13,11 @@ I've included a `firebase.json` file here, which you could easily use to deploy 
 
 If you're wondering why there's a server component to this demo, investigate the `firebase.json` file. All it does is ensure that neither the index page or the service worker are cached by the browser. Because a service worker is willing to fill its cache with a browser cache, it's important to keep those caches clear.
 
-## Lifecycle
+## First load lifecycle
 
 1. Browser loads index.html in the usual fashion
 2. Browser downloads service-worker.js and registers it (at `index.html`'s request) as a service worker
 3. `service-worker.js` receives an `install` event.
-  - asdf
-4. fdsa
+4. The install event handler opens a new cache with a key that is the value of `currentCacheKey`
+5. `index.html` is added to the cache
+6. The browser downloads `index.html` _again_. This time the response is stored in the new cache.
