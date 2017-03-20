@@ -1,9 +1,25 @@
-var CACHE_NAME = '1.0.7';
+var CACHE_NAME = '1.0.18';
 var files = [
-  '',
   '/',
-  '/index.html',
 ]
+
+
+// When this service worker is activated
+self.addEventListener('activate', function (event) {
+
+  // Look for out-of-date caches and delete them
+  event.waitUntil(
+    caches.keys().then(function (keyList) {
+      return Promise.all(keyList.map(function (key, i) {
+        if (key !== CACHE_NAME) {
+          console.log('deleting cache', key);
+          return caches.delete(keyList[i])
+        }
+      }))
+    })
+  )
+})
+
 
 // Upon installing a service worker
 self.addEventListener('install', function (event) {
@@ -15,6 +31,7 @@ self.addEventListener('install', function (event) {
     })
   )
 })
+
 
 // When a request occurs within the scope of this service worker
 self.addEventListener('fetch', function (event) {
@@ -34,20 +51,3 @@ self.addEventListener('fetch', function (event) {
     })
   );
 });
-
-
-// When this service worker is activated
-self.addEventListener('activate', function (event) {
-
-  // Look for out-of-date caches and delete them
-  event.waitUntil(
-    caches.keys().then(function (keyList) {
-      return Promise.all(keyList.map(function (key, i) {
-        if (key !== CACHE_NAME) {
-          console.log('deleting cache', key);
-          return caches.delete(keyList[i])
-        }
-      }))
-    })
-  )
-})
