@@ -7,18 +7,6 @@
         "key" : "Cache-Control",
         "value" : "max-age=0"
       } ]
-    }, {
-      "source" : "/",
-      "headers" : [ {
-        "key" : "Cache-Control",
-        "value" : "max-age=0"
-      } ]
-    }, {
-      "source" : "index.html",
-      "headers" : [ {
-        "key" : "Cache-Control",
-        "value" : "max-age=0"
-      } ]
    } ]
   }
 }

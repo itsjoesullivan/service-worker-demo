@@ -1,4 +1,4 @@
-var CACHE_NAME = '1.0.18';
+var CACHE_NAME = '1.0.20';
 var files = [
   '/',
 ]
