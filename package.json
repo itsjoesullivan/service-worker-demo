@@ -1,0 +1,11 @@
+{
+  "name": "pwa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "python -m SimpleHTTPServer"
+  },
+  "author": "",
+  "license": "ISC"
+}

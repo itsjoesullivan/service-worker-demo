@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+      if (navigator.serviceWorker) {
+        console.log('registering');
+        navigator.serviceWorker.register('service-worker2.js').then(function(e) { console.log('success', e); }, function(e) { console.log('bad', e); });
+      }
+    </script>
+    <p>
+    Version: 0.0.4
+    </p>
+  </body>
+</html>
