@@ -30,7 +30,7 @@ The following is a step-by-step rundown of how your browser interacts with the s
 
 1. When the browser requests `/`, the service worker supplies the response.
 2. The browser downloads `service-worker.js` in the usual way. __The browser is willing to retrieve `service-worker.js` from the browser cache__.
-3. There is no step 3
+3. There is no step 3. This load, and subsequent loads, happen virtually instantly regardless of whether the visitor is even connected to the internet. That's the magic of service workers.
 
 ### Upgrade lifecycle
 
