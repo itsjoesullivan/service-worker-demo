@@ -12,3 +12,11 @@ I've included a `firebase.json` file here, which you could easily use to deploy 
 4. It should ask you to authenticate (maybe you'll need to sign up), and you will need to create an app to which to deploy it to. But shortly you will have a live page to see your 
 
 If you're wondering why there's a server component to this demo, investigate the `firebase.json` file. All it does is ensure that neither the index page or the service worker are cached by the browser. Because a service worker is willing to fill its cache with a browser cache, it's important to keep those caches clear.
+
+## Lifecycle
+
+1. Browser loads index.html in the usual fashion
+2. Browser downloads service-worker.js and registers it (at `index.html`'s request) as a service worker
+3. `service-worker.js` receives an `install` event.
+  - asdf
+4. fdsa
