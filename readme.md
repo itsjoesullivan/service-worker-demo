@@ -14,3 +14,7 @@ I've included a `firebase.json` file here, which you could easily use to deploy 
 If you're wondering why there's a server component to this demo, investigate the `firebase.json` file. All it does is ensure that neither the index page or the service worker are cached by the browser. Because a service worker is willing to fill its cache with a browser cache, it's important to keep those caches clear.
 
 ## Reading the tea leaves
+
+| Name | Status | Type | Initiator | Size | Time |
+| ---- | ---- | ---- | --- | --- | -- |
+| `/` | 200 | document | Other | 355 b | 53 ms
