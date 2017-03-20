@@ -3,25 +3,13 @@
   <head>
   </head>
   <body>
+    <p>
+    Version: 1.0.32
+    </p>
     <script>
       if (navigator.serviceWorker) {
-        console.log('registering');
-        navigator.serviceWorker.register('service-worker.js').then(
-        function(registration) {
-          console.log('success', registration);
-          /*
-          setTimeout(function() {
-            console.log('attempting update');
-            registration.update();
-          }, 2500);
-          */
-        }, function(e) {
-          console.log('bad', e);
-        });
+        navigator.serviceWorker.register('service-worker.js');
       }
     </script>
-    <p>
-    Version: 1.0.20
-    </p>
   </body>
 </html>

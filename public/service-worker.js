@@ -1,53 +1,44 @@
-var CACHE_NAME = '1.0.20';
-var files = [
-  '/',
-]
+var currentCacheKey = '1.0.32';
 
 
-// When this service worker is activated
-self.addEventListener('activate', function (event) {
+function getOldCacheKeys(keyList) {
+  return keyList.filter(function(key) {
+    return key !== currentCacheKey;
+  });
+}
 
-  // Look for out-of-date caches and delete them
-  event.waitUntil(
-    caches.keys().then(function (keyList) {
-      return Promise.all(keyList.map(function (key, i) {
-        if (key !== CACHE_NAME) {
-          console.log('deleting cache', key);
-          return caches.delete(keyList[i])
-        }
-      }))
-    })
-  )
-})
+function clearCacheKeys(keyList) {
+  return keyList.map(caches.delete.bind(caches));
+}
 
-
-// Upon installing a service worker
-self.addEventListener('install', function (event) {
-
-  // Cache specified under the cache name specified above
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(files)
-    })
-  )
-})
+function activateHandler(event) {
+  const clearOldCaches = caches.keys()
+    .then(getOldCacheKeys)
+    .then(clearCacheKeys)
+    .then(Promise.all.bind(Promise))
+  event.waitUntil(clearOldCaches);
+}
+self.addEventListener('activate', activateHandler);
 
 
-// When a request occurs within the scope of this service worker
-self.addEventListener('fetch', function (event) {
-  console.log('fetch: ' + event.request.url);
-  
-  // Attempt to respond (return request)...
-  // otherwise actually execute the network request.
-  event.respondWith(
-    caches.match(event.request).then(function (request) {
-      if (request) {
-        console.log('serving cached request');
-        return request;
-      } else {
-        console.log('request not found');
-        return fetch(event.request);
-      }
-    })
-  );
-});
+function installHandler(event) {
+  const addFilesToCache = caches.open(currentCacheKey)
+    .then(function(cache) {
+      return cache.add('/');
+    });
+  event.waitUntil(addFilesToCache);
+}
+self.addEventListener('install', installHandler);
+
+
+function handleRequest(request) {
+  return caches.match(request)
+    .then(function(cachedRequest) {
+      return cachedRequest || fetch(request);
+    });
+}
+
+function fetchHandler(event) {
+  event.respondWith(handleRequest(event.request));
+}
+self.addEventListener('fetch', fetchHandler);
