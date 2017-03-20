@@ -38,3 +38,12 @@ Say you upgrade the app to a new version. In the case of this repo that would en
 4. At the moment that all tabs running the previous version of the page are closed, the service worker is activated.
 5. The service worker receives an "activate" event. The activate event handler clears out the old caches.
 6. Visiting the page again follows the "Second load lifecycle" (above) exactly.
+
+
+## Gotchas
+
+I called them out a bit above, but let me reiterate, because these issues confused me for a long time:
+
+1. When service workers fill their cache, the browser may give them browser-cached responses. If this occurs, a new service worker can easily cache an old version of an asset.
+2. When registering a service worker, your browser is willing to register a browser-cached version of the service-worker. That's why this demo instructs the browser to not cache `service-worker.js`. You can think of the cache control header of `service-worker.js` as "how often should the browser check my page for upgrades?".
+3. The "activate" event is only fired after all tabs open to the page have been closed. A refresh is not enough. (And you might forget that you've got a tab somewhere open to that page -- that would keep a new service worker from activating).
