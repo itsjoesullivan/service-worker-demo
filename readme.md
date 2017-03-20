@@ -18,3 +18,5 @@ If you're wondering why there's a server component to this demo, investigate the
 | Name | Status | Type | Initiator | Size | Time |
 | ---- | ---- | ---- | --- | --- | -- |
 | `/` | 200 | document | Other | 355 b | 53 ms
+| `/service-worker.js` | 200 | javascript | `/service-worker.js:-Infinity` | 0 b | 42 ms
+| `/` | 200 | text/html | Other | 355 b | 44 ms
