@@ -47,3 +47,4 @@ I called them out a bit above, but let me reiterate, because these issues confus
 1. When service workers fill their cache, the browser may give them browser-cached responses. If this occurs, a new service worker can easily cache an old version of an asset.
 2. When registering a service worker, your browser is willing to register a browser-cached version of the service-worker. That's why this demo instructs the browser to not cache `service-worker.js`. You can think of the cache control header of `service-worker.js` as "how often should the browser check my page for upgrades?".
 3. The "activate" event is only fired after all tabs open to the page have been closed. A refresh is not enough. (And you might forget that you've got a tab somewhere open to that page -- that would keep a new service worker from activating).
+4. Shift-refreshing circumvents service workers entirely. It's not a way to refresh the service worker, or the service worker installation process.
