@@ -1,6 +1,8 @@
-var CACHE_NAME = '0.0.7';
+var CACHE_NAME = '1.0.7';
 var files = [
+  '',
   '/',
+  '/index.html',
 ]
 
 // Upon installing a service worker
@@ -16,12 +18,19 @@ self.addEventListener('install', function (event) {
 
 // When a request occurs within the scope of this service worker
 self.addEventListener('fetch', function (event) {
+  console.log('fetch: ' + event.request.url);
   
   // Attempt to respond (return request)...
   // otherwise actually execute the network request.
   event.respondWith(
     caches.match(event.request).then(function (request) {
-      return request || fetch(event.request)
+      if (request) {
+        console.log('serving cached request');
+        return request;
+      } else {
+        console.log('request not found');
+        return fetch(event.request);
+      }
     })
   );
 });
@@ -35,6 +44,7 @@ self.addEventListener('activate', function (event) {
     caches.keys().then(function (keyList) {
       return Promise.all(keyList.map(function (key, i) {
         if (key !== CACHE_NAME) {
+          console.log('deleting cache', key);
           return caches.delete(keyList[i])
         }
       }))

@@ -1,10 +1,10 @@
 {
   "name": "pwa",
-  "version": "1.0.0",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run": "python -m SimpleHTTPServer"
+    "deploy": "firebase deploy"
   },
   "author": "",
   "license": "ISC"
